@@ -129,3 +129,5 @@ class CSVDatasetWithName(CSVDataset):
         """
         name = self.data.loc[i, self.image_field]
         return super().__getitem__(i), name
+
+

@@ -93,3 +93,31 @@ class CSVDatasetWithName(CSVDataset):
         """
         name = self.data.loc[i, self.image_field]
         return super().__getitem__(i), name
+
+
+class PneumoniaDataset(CSVDataset):
+    def __init__(self, root, csv_file, image_field, target_field,
+                 loader=default_loader, transform=None,
+                 target_transform=None, add_extension=None,
+                 limit=None, random_subset_size=None,
+                 split=None):
+        super().__init__(root, csv_file, image_field, target_field,
+                         loader, transform,
+                         target_transform, add_extension,
+                         limit, random_subset_size,
+                         split)
+        self.unique = self.data['patientId'].unique().tolist()
+
+    def __getitem__(self, item):
+
+        path = os.path.join(self.root, self.unique[item])
+        if self.add_extension:
+            path = path + self.add_extension
+        sample = self.loader(path)
+        target = self.class_to_idx[self.data.loc[index, self.target_field]]
+        if self.transform is not None:
+            sample = self.transform(sample)
+        if self.target_transform is not None:
+            target = self.target_transform(target)
+
+        return sample, target
