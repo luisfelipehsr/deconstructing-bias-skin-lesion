@@ -27,22 +27,22 @@ for family in sorted(file_name_arr):
 
 		if i == 0:
 			mask = misc.imread(mask_path+family+'.png', flatten=True)
-			base_image = np.ones(read_image.shape, dtype=int) # Healthy Skin is 1
+			base_image = np.ones(read_image.shape, dtype=int)  # Healthy Skin is 1
 			mask[mask > 0] = 255
 			mask = np.int8(mask/255)
-			base_image += mask # Common Lesion is 2
+			base_image += mask  # Common Lesion is 2
 
 		type_file = file.split('/')[-1].split('_')[3]
 
-		if type_file == 'pigment': # 3
+		if type_file == 'pigment':  # 3
 			base_image += read_image
-		elif type_file == 'negative': # 4
+		elif type_file == 'negative':  # 4
 			base_image += read_image*2
-		elif type_file.startswith('streaks'): # 5
+		elif type_file.startswith('streaks'):  # 5
 			base_image += read_image*3
-		elif type_file == 'milia': # 6
+		elif type_file == 'milia':  # 6
 			base_image += read_image*4
-		elif type_file.startswith('globules'): #7
+		elif type_file.startswith('globules'):  # 7
 			base_image += read_image*5
 		else:
 			print(type_file, '... ERROR: Invalid File Found!!!!')
