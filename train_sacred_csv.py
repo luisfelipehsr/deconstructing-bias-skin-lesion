@@ -141,7 +141,7 @@ def main(train_root, train_csv, val_root, val_csv_low, val_csv_medium, val_csv_h
     LAST_MODEL_PATH = os.path.join(CHECKPOINTS_DIR, 'model_last')
     for directory in (AUGMENTED_IMAGES_DIR, CHECKPOINTS_DIR):
         os.makedirs(directory)
-
+    import pdb; pdb.set_trace()
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     model = ptm.inceptionv4(num_classes=1000, pretrained='imagenet')
