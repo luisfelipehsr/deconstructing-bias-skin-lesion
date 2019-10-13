@@ -1,4 +1,4 @@
-DEVICE=0
+DEVICE=3
 CUDA_VISIBLE_DEVICES=DEVICE python3 train_sacred_csv.py with train_root=isic-rgb train_csv=isic-csv/10fold/isic-train-0.csv --name sacred-isic-rgb-7030-nodup
 CUDA_VISIBLE_DEVICES=DEVICE python3 train_sacred_csv.py with train_root=isic-rgb train_csv=isic-csv/10fold/isic-train-1.csv --name sacred-isic-rgb-7030-nodup
 CUDA_VISIBLE_DEVICES=DEVICE python3 train_sacred_csv.py with train_root=isic-rgb train_csv=isic-csv/10fold/isic-train-2.csv --name sacred-isic-rgb-7030-nodup
