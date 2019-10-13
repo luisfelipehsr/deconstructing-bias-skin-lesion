@@ -34,6 +34,7 @@ def main():
     parser.add_argument('target_field', default='label')
     parser.add_argument('-n', type=int, default=50,
                         help='Number of image copies')
+    parser.add_argument('--device', default=0)
     parser.add_argument('--print-predictions', '-p', action='store_true',
                         help='Print the predicted value for each image')
     args = parser.parse_args()
@@ -59,7 +60,11 @@ def main():
     dataloader = torch.utils.data.DataLoader(
         dataset, batch_size=args.n, shuffle=False, num_workers=2, pin_memory=True)
 
-    model = torch.load(args.model)
+    if torch.cuda.is_available():
+        device = torch.device(f'cuda:{args.device}')
+    else:
+        device = torch.device('cpu')
+    model = torch.load(args.model, map_location=device)
     model.eval()
 
     criterion = nn.CrossEntropyLoss()

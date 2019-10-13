@@ -49,6 +49,7 @@ if os.path.isfile(telegram_file):
 
 @ex.config
 def cfg():
+    device = 0
     train_root = None
     train_csv = None
     val_root = None
@@ -141,8 +142,8 @@ def main(train_root, train_csv, val_root, val_csv_low, val_csv_medium, val_csv_h
     LAST_MODEL_PATH = os.path.join(CHECKPOINTS_DIR, 'model_last')
     for directory in (AUGMENTED_IMAGES_DIR, CHECKPOINTS_DIR):
         os.makedirs(directory)
-    import pdb; pdb.set_trace()
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+    device = torch.device("cuda:3" if torch.cuda.is_available() else "cpu")
 
     model = ptm.inceptionv4(num_classes=1000, pretrained='imagenet')
     model.last_linear = nn.Linear(model.last_linear.in_features, n_classes)
