@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-DEVICE=3
+DEVICE=0
 for i in 0 1 2 3 4 5 6 7 8 9
 do
     CUDA_VISIBLE_DEVICES=DEVICE python3 train_sacred_csv.py with train_root=pneumonia-rgb train_csv="pneumonia-csv/10fold/pneumonia-train-${i}.csv" --name sacred-pneumonia-rgb-7030-nodup
