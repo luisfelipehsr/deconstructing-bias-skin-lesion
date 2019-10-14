@@ -30,11 +30,11 @@ class CSVDataset(data.Dataset):
             self.data = self.data.reset_index()
 
         # Calculate class weights for WeightedRandomSampler
-        self.class_counts = dict(self.data['label'].value_counts())
+        self.class_counts = dict(self.data[self.target_field].value_counts())
         self.class_weights = {label: max(self.class_counts.values()) / count
                               for label, count in self.class_counts.items()}
         self.sampler_weights = [self.class_weights[cls]
-                                for cls in self.data['label']]
+                                for cls in self.data[self.target_field]]
         self.class_weights_list = [self.class_weights[k]
                                    for k in sorted(self.class_weights)]
 

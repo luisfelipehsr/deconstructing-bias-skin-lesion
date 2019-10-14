@@ -172,7 +172,6 @@ def main(device, train_root, train_csv, val_root, val_csv_low, val_csv_medium, v
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
     ]),
     }
-        
 
     train_ds = CSVDatasetWithName(
         train_root, train_csv, id_col, class_col,
