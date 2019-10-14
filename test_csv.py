@@ -51,7 +51,7 @@ def main():
 
 
     train_ds = CSVDatasetWithName(
-        os.path.join(args.dataset), os.path.join(args.csv), 'image', 'label',
+        os.path.join(args.dataset), os.path.join(args.csv), args.id_field, args.target_field,
         transform=data_transform, add_extension='.png', split=None)
 
 

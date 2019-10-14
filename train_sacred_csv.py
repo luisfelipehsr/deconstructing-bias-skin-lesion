@@ -66,6 +66,8 @@ def cfg():
     weighted_loss = False  # use weighted loss based on class imbalance
     balanced_loader = False  # balance classes in data loader
     lr = 0.001  # base learning rate
+    id_col = 'image'
+    class_col = 'label'
 
 def train_epoch(device, model, dataloaders, criterion, optimizer, phase,
                 batches_per_epoch=None):
@@ -132,9 +134,9 @@ def save_images(dataset, to, n=32):
 
 
 @ex.automain
-def main(train_root, train_csv, val_root, val_csv_low, val_csv_medium, val_csv_high, epochs, model_name, batch_size, 
-         num_workers, val_samples, early_stopping_patience,
-         n_classes, weighted_loss, balanced_loader, lr, _run):
+def main(device, train_root, train_csv, val_root, val_csv_low, val_csv_medium, val_csv_high, epochs,
+         model_name, batch_size, num_workers, val_samples, early_stopping_patience,
+         n_classes, weighted_loss, balanced_loader, lr, _run, id_col, class_col):
 
     AUGMENTED_IMAGES_DIR = os.path.join(fs_observer.dir, 'images')
     CHECKPOINTS_DIR = os.path.join(fs_observer.dir, 'checkpoints')
@@ -173,7 +175,7 @@ def main(train_root, train_csv, val_root, val_csv_low, val_csv_medium, val_csv_h
         
 
     train_ds = CSVDatasetWithName(
-        train_root, train_csv, 'image', 'label',
+        train_root, train_csv, id_col, class_col,
         transform=data_transforms['train'], add_extension='.png', split=None)
 
 
