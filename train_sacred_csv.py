@@ -145,7 +145,7 @@ def main(device, train_root, train_csv, val_root, val_csv_low, val_csv_medium, v
     for directory in (AUGMENTED_IMAGES_DIR, CHECKPOINTS_DIR):
         os.makedirs(directory)
 
-    device = torch.device("cuda:3" if torch.cuda.is_available() else "cpu")
+    device = torch.device(f"cuda:{device}" if torch.cuda.is_available() else "cpu")
 
     model = ptm.inceptionv4(num_classes=1000, pretrained='imagenet')
     model.last_linear = nn.Linear(model.last_linear.in_features, n_classes)
