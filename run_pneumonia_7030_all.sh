@@ -7,7 +7,7 @@ done
 
 for i in 0 1 2 3 4 5 6 7 8 9
 do
-    python3 test_csv.py "results-sacred/$((361 + i))/checkpoints/model_best.pth" pneumonia-rgb/ "pneumonia-csv/10fold/pneumonia-test-${i}.csv" device=${DEVICE} --id_field 'patientId' --target_field 'Target' -n 50 -p > "results-sacred/$((361 + i))/auc_test_best_all.txt"
+    python3 test_csv.py "results-sacred/$((0 + i))/checkpoints/model_best.pth" pneumonia-rgb/ "pneumonia-csv/10fold/pneumonia-test-${i}.csv" device=${DEVICE} --id_field 'patientId' --target_field 'Target' -n 50 -p > "results-sacred/$((361 + i))/auc_test_best_all.txt"
 done
 
 # BACKGROUND
@@ -18,7 +18,7 @@ done
 
 for i in 0 1 2 3 4 5 6 7 8 9
 do
-    python3 test_csv.py "results-sacred/$((371 + i))/checkpoints/model_best.pth" pneumonia-background/ "pneumonia-csv/10fold/pneumonia-test-${i}.csv" device=${DEVICE} --id_field 'patientId' --target_field 'Target' -n 50 -p > "results-sacred/$((371 + i))/auc_test_best_all.txt"
+    python3 test_csv.py "results-sacred/$((10 + i))/checkpoints/model_best.pth" pneumonia-background/ "pneumonia-csv/10fold/pneumonia-test-${i}.csv" device=${DEVICE} --id_field 'patientId' --target_field 'Target' -n 50 -p > "results-sacred/$((371 + i))/auc_test_best_all.txt"
 done
 
 # BBOX
@@ -29,7 +29,7 @@ done
 
 for i in 0 1 2 3 4 5 6 7 8 9
 do
-    python3 test_csv.py "results-sacred/$((381 + i))/checkpoints/model_best.pth" pneumonia-bbox/ "pneumonia-csv/10fold/pneumonia-test-${i}.csv" device=${DEVICE} --id_field 'patientId' --target_field 'Target' -n 50 -p > "results-sacred/$((381 + i))/auc_test_best_all.txt"
+    python3 test_csv.py "results-sacred/$((20 + i))/checkpoints/model_best.pth" pneumonia-bbox/ "pneumonia-csv/10fold/pneumonia-test-${i}.csv" device=${DEVICE} --id_field 'patientId' --target_field 'Target' -n 50 -p > "results-sacred/$((381 + i))/auc_test_best_all.txt"
 done
 
 # BBOX 70
@@ -40,7 +40,7 @@ done
 
 for i in 0 1 2 3 4 5 6 7 8 9
 do
-    python3 test_csv.py "results-sacred/$((391 + i))/checkpoints/model_best.pth" pneumonia-bbox-squared-70/ "pneumonia-csv/10fold/pneumonia-test-${i}.csv" device=${DEVICE} --id_field 'patientId' --target_field 'Target' -n 50 -p > "results-sacred/$((391 + i))/auc_test_best_all.txt"
+    python3 test_csv.py "results-sacred/$((30 + i))/checkpoints/model_best.pth" pneumonia-bbox-squared-70/ "pneumonia-csv/10fold/pneumonia-test-${i}.csv" device=${DEVICE} --id_field 'patientId' --target_field 'Target' -n 50 -p > "results-sacred/$((391 + i))/auc_test_best_all.txt"
 done
 
 for i in 0 1 2 3 4 5 6 7 8 9

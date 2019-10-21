@@ -20,6 +20,7 @@ from dataset_loader import CSVDatasetWithName
 
 np.set_printoptions(precision=4, suppress=True)
 
+
 class AverageMeter(object):
     """Computes and stores the average and current value"""
     def __init__(self):
