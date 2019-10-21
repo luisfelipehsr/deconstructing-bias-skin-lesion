@@ -30,8 +30,8 @@ def main():
     parser.add_argument('model', help='Path to the model')
     parser.add_argument('dataset', help='Path to dataset')
     parser.add_argument('csv', help='Path to csv')
-    parser.add_argument('id_field', default='image')
-    parser.add_argument('target_field', default='label')
+    parser.add_argument('--id_field', default='image')
+    parser.add_argument('--target_field', default='label')
     parser.add_argument('-n', type=int, default=50,
                         help='Number of image copies')
     parser.add_argument('--device', default=0)
