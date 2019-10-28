@@ -1,4 +1,7 @@
-/*
 !.gitignore
 !.placeholder
 !10fold
+results-sacred
+images
+analysis
+.ipynb_checkpoints
