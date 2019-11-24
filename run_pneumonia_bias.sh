@@ -1,6 +1,6 @@
 #!/bin/bash
 DEVICE=0
-BASE=0
+BASE=1
 TRAIN_DIR='pneumonia-masks'
 
 # train
