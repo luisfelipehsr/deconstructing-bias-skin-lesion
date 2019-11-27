@@ -6,7 +6,7 @@ from torch.autograd import Variable
 import numpy as np
 from torchvision import datasets, models, transforms
 import os
-from sklearn.metrics import roc_auc_score
+from sklearn.metrics import roc_auc_score, accuracy_score
 import torch.nn.functional as F
 from tqdm import tqdm
 from scipy import misc
@@ -87,11 +87,14 @@ def main():
         all_labels.append(labels.data[0])
 
     epoch_auc = roc_auc_score(all_labels, all_scores)
+    epoch_acc = accuracy_score(all_labels, all_scores)
+    print('accuracy: {}').format(epoch_acc)
     print('auc: {}'.format(epoch_auc))
 
     if args.print_predictions:
         for k, v in preds_dict.items():
             print("{},{}".format(k, v))
+
 
 if __name__ == '__main__':
     main()
