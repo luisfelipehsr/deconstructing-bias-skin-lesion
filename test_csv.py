@@ -52,10 +52,10 @@ def main():
 
     train_ds = CSVDatasetWithName(
         os.path.join(args.dataset), os.path.join(args.csv), args.id_field, args.target_field,
-        transform=data_transform, add_extension='.png', split=None)
+        transform=data_transform, add_extension='.png', split=None)[:2]
 
 
-    dataset = AugmentOnTest(train_ds, args.n)[:2]
+    dataset = AugmentOnTest(train_ds, args.n)
 
     dataloader = torch.utils.data.DataLoader(
         dataset, batch_size=args.n, shuffle=False, num_workers=2, pin_memory=True)
