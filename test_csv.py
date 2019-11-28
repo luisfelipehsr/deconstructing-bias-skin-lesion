@@ -84,7 +84,7 @@ def main():
 
         preds_dict[name[0]] = scores.mean()
         all_scores.append(scores.mean())
-        all_labels.append(labels.data[0].cpu().data.numpy()[0])
+        all_labels.append(int(labels.data[0].cpu().data.numpy()))
         if k > 3:
             break
 
