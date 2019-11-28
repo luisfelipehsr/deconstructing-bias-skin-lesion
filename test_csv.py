@@ -52,7 +52,7 @@ def main():
 
     train_ds = CSVDatasetWithName(
         os.path.join(args.dataset), os.path.join(args.csv), args.id_field, args.target_field,
-        transform=data_transform, add_extension='.png', split=None)[:2]
+        transform=data_transform, add_extension='.png', split=None)
 
 
     dataset = AugmentOnTest(train_ds, args.n)
@@ -72,7 +72,7 @@ def main():
     all_scores = []
     all_labels = []
     preds_dict = {}
-    for data in tqdm(dataloader):
+    for k, data in enumerate(tqdm(dataloader)):
         (inputs, labels), name = data
 
         inputs = Variable(inputs.cuda())
@@ -85,6 +85,8 @@ def main():
         preds_dict[name[0]] = scores.mean()
         all_scores.append(scores.mean())
         all_labels.append(labels.data[0])
+        if k > 3:
+            break
 
     epoch_auc = roc_auc_score(all_labels, all_scores)
     print(all_scores)
