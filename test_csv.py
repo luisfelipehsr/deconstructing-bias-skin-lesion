@@ -89,7 +89,8 @@ def main():
             break
 
     epoch_auc = roc_auc_score(all_labels, all_scores)
-    all_scores = list(np.around(all_scores))
+    all_scores = np.around(all_scores).tolist()
+    print(all_scores)
     epoch_acc = accuracy_score(all_labels, all_scores)
     print('accuracy: {}').format(epoch_acc)
     print('auc: {}'.format(epoch_auc))
