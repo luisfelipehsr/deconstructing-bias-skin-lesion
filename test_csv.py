@@ -72,7 +72,7 @@ def main():
     all_scores = []
     all_labels = []
     preds_dict = {}
-    for data in tqdm(dataloader):
+    for data in tqdm(dataloader[:2]):
         (inputs, labels), name = data
 
         inputs = Variable(inputs.cuda())
@@ -85,10 +85,9 @@ def main():
         preds_dict[name[0]] = scores.mean()
         all_scores.append(scores.mean())
         all_labels.append(labels.data[0])
-        continue
 
     epoch_auc = roc_auc_score(all_labels, all_scores)
-    print(all_scores) 
+    print(all_scores)
     epoch_acc = accuracy_score(all_labels, all_scores)
     print('accuracy: {}').format(epoch_acc)
     print('auc: {}'.format(epoch_auc))
