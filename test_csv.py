@@ -92,8 +92,9 @@ def main():
     print('auc: {}'.format(epoch_auc))
     all_scores = np.around(all_scores).tolist()
     print(all_labels, all_scores)
+    print(accuracy_score(all_labels, all_scores))
     epoch_acc = accuracy_score(all_labels, all_scores)
-    print('accuracy: {}').format(epoch_acc)
+    print('accuracy: {}'.format(epoch_acc))
 
     if args.print_predictions:
         for k, v in preds_dict.items():
