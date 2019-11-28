@@ -55,7 +55,7 @@ def main():
         transform=data_transform, add_extension='.png', split=None)
 
 
-    dataset = AugmentOnTest(train_ds, args.n)
+    dataset = AugmentOnTest(train_ds, args.n)[:2]
 
     dataloader = torch.utils.data.DataLoader(
         dataset, batch_size=args.n, shuffle=False, num_workers=2, pin_memory=True)
@@ -72,7 +72,7 @@ def main():
     all_scores = []
     all_labels = []
     preds_dict = {}
-    for data in tqdm(dataloader[:2]):
+    for data in tqdm(dataloader):
         (inputs, labels), name = data
 
         inputs = Variable(inputs.cuda())
