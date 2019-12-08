@@ -36,6 +36,8 @@ for k in range(1):
 		name = file.split('/')[-1]
 		image = Image.open(file).convert('L')
 		image_np = np.array(image)
+		print(name)
+		print('segmentation')
 		print(image_np.shape)
 		print(image_np.max())
 		print(image_np.min())
@@ -65,6 +67,8 @@ for k in range(1):
 		# Else, return the traditional bounding box.
 		new_image = Image.open(traditional_path + name[:-4] + '.jpg')
 		new_image = np.array(new_image)
+		print('original')
+		print(new_image.shape)
 		box_diameter = 1024
 		if (right - left) * (bottom - top) < 0.7 * box_diameter * box_diameter:
 			print('too small')
