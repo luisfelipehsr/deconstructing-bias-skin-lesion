@@ -77,7 +77,11 @@ for k in range(1):
 					box_radius = int((box_diameter / 2) * 0.7)
 					#if i > middle_y - box_radius and i < middle_y + box_radius and j > middle_x - box_radius and j < middle_x + box_radius:
 					#	new_image[i, j] = 0
-					new_image[(middle_y - box_radius + 1):(middle_y + box_radius), (middle_x - box_radius + 1):(middle_x + box_radius)] = 0
+					top_k = int(middle_y - box_radius + 1)
+					bottom_k = int(middle_y + box_radius)
+					left_k = int(middle_x - box_radius + 1)
+					right_k = int(middle_x + box_radius)
+					new_image[top_k:bottom_k, left_k:right_k] = 0
 			new_image = Image.fromarray(new_image)
 			new_image.save(output_path[k] + name)
 		else:
