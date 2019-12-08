@@ -75,8 +75,9 @@ for k in range(1):
 			for i in range(len(image_np)):
 				for j in range(len(image_np[0])):
 					box_radius = int((box_diameter / 2) * 0.7)
-					if i > middle_y - box_radius and i < middle_y + box_radius and j > middle_x - box_radius and j < middle_x + box_radius:
-						new_image[i, j] = 0
+					#if i > middle_y - box_radius and i < middle_y + box_radius and j > middle_x - box_radius and j < middle_x + box_radius:
+					#	new_image[i, j] = 0
+					new_image[(middle_y - box_radius + 1):(middle_y + box_radius), (middle_x - box_radius + 1):(middle_x + box_radius)] = 0
 			new_image = Image.fromarray(new_image)
 			new_image.save(output_path[k] + name)
 		else:
@@ -84,6 +85,6 @@ for k in range(1):
 			# 	for j in range(len(image_np[0])):
 			# 		if i > top and i < bottom and j > left  and j < right:
 			# 			new_image[i, j] = 0
-			new_image[top:bottom, left:right, :] = 0
+			new_image[top+1:bottom, left+1:right] = 0
 			new_image = Image.fromarray(new_image)
 			new_image.save(output_path[k] + name)
