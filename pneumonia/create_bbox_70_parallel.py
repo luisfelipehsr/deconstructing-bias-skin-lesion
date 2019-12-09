@@ -4,13 +4,12 @@ import numpy as np
 import os
 import sys
 
-# traditional_path = 'images/train/'
-# segmentation_path = ['images/only_masks/double_box/']
-# output_path = ['images/bbox70/double_box/']
-import pdb; pdb.set_trace()
-traditional_path = 'without_annotation/pneumonia/images/train/'
-segmentation_path = ['without_annotation/pneumonia/images/only_masks/double_box/']
-output_path = ['test/']
+traditional_path = 'images/train/'
+segmentation_path = ['images/only_masks/single_box/']
+output_path = ['images/bbox70/single_box/']
+# traditional_path = 'without_annotation/pneumonia/images/train/'
+# segmentation_path = ['without_annotation/pneumonia/images/only_masks/double_box/']
+# output_path = ['test/']
 
 try:
 	concurrency = int(sys.argv[1])
@@ -40,6 +39,8 @@ for k in range(1):
 		name = file.split('/')[-1]
 		image = Image.open(file).convert('L')
 		image_np = np.array(image)
+		print(name)
+		print('segmentation')
 		print(image_np.shape)
 		print(image_np.max())
 		print(image_np.min())
@@ -78,21 +79,31 @@ for k in range(1):
 		except Exception:
 			new_image = Image.open(traditional_path + name[:-4] + '.png')
 		new_image = np.array(new_image)
+		print('original')
+		print(new_image.shape)
 		box_diameter = 1024
+		box_radius = int((box_diameter / 2) * (0.7 ** 0.5))
+		print(middle_x, middle_y, box_radius)
 		if (right - left) * (bottom - top) < 0.7 * box_diameter * box_diameter:
 			print('too small')
-			for i in range(len(image_np)):
-				for j in range(len(image_np[0])):
-					box_radius = int((box_diameter / 2) * 0.7)
-					if i > middle_y - box_radius and i < middle_y + box_radius and j > middle_x - box_radius and j < middle_x + box_radius:
-						new_image[i, j] = 0
-			new_image = Image.fromarray(new_image)
-			new_image.save(output_path[k] + name)
+			# for i in range(len(image_np)):
+			# 	for j in range(len(image_np[0])):
+			# 		box_radius = int((box_diameter / 2) * 0.7)
+			# 		if i > middle_y - box_radius and i < middle_y + box_radius and j > middle_x - box_radius and j < middle_x + box_radius:
+			# 			new_image[i, j] = 0
+
+			top_k = max(int(middle_y - box_radius + 1), 0)
+			bottom_k = min(int(middle_y + box_radius), 1023)
+			left_k = max(int(middle_x - box_radius + 1), 0)
+			right_k = min(int(middle_x + box_radius), 1023)
+			new_image[top_k:bottom_k, left_k:right_k] = 0
 		else:
 			# for i in range(len(image_np)):
 			# 	for j in range(len(image_np[0])):
 			# 		if i > top and i < bottom and j > left  and j < right:
 			# 			new_image[i, j] = 0
-			new_image[top:bottom, left:right] = 0
-			new_image = Image.fromarray(new_image)
-			new_image.save(output_path[k] + name)
+			new_image[top+1:bottom, left+1:right] = 0
+
+		print('saving image')
+		new_image = Image.fromarray(new_image)
+		new_image.save(output_path[k] + name)
