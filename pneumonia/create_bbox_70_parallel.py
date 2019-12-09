@@ -4,9 +4,13 @@ import numpy as np
 import os
 import sys
 
-traditional_path = 'images/train/'
-segmentation_path = ['images/only_masks/double_box/']
-output_path = ['images/bbox70/double_box/']
+# traditional_path = 'images/train/'
+# segmentation_path = ['images/only_masks/double_box/']
+# output_path = ['images/bbox70/double_box/']
+import pdb; pdb.set_trace()
+traditional_path = 'without_annotation/pneumonia/images/train/'
+segmentation_path = ['without_annotation/pneumonia/images/only_masks/double_box/']
+output_path = ['test/']
 
 try:
 	concurrency = int(sys.argv[1])
@@ -45,25 +49,34 @@ for k in range(1):
 		left = 100000
 		right = 0
 		# Find the bounding box coordinates.
-		for i in range(len(image_np)):
-			for j in range(len(image_np[0])):
-				pix = image_np[i, j]
-				if pix == 255:
-					if i < top:
-						top = i
-					if i > bottom:
-						bottom = i
-					if j < left:
-						left = j
-					if j > right:
-						right = j
+		# for i in range(len(image_np)):
+		# 	for j in range(len(image_np[0])):
+		# 		pix = image_np[i, j]
+		# 		if pix == 255:
+		# 			if i < top:
+		# 				top = i
+		# 			if i > bottom:
+		# 				bottom = i
+		# 			if j < left:
+		# 				left = j
+		# 			if j > right:
+		# 				right = j
+		mask = image_np == 255
+		nonzeros = np.nonzero(mask)
+		top = nonzeros[0].min()
+		bottom = nonzeros[0].max()
+		right = nonzeros[1].max()
+		left = nonzeros[1].min()
 
 		middle_x = (right + left)/2
 		middle_y = (top + bottom)/2
 
 		# If the traditional bounding box occupy less than 70% of the image, place a 250x250 square in the middle of the lesion.
 		# Else, return the traditional bounding box.
-		new_image = Image.open(traditional_path + name[:-4] + '.jpg')
+		try:
+			new_image = Image.open(traditional_path + name[:-4] + '.jpg')
+		except Exception:
+			new_image = Image.open(traditional_path + name[:-4] + '.png')
 		new_image = np.array(new_image)
 		box_diameter = 1024
 		if (right - left) * (bottom - top) < 0.7 * box_diameter * box_diameter:
@@ -80,6 +93,6 @@ for k in range(1):
 			# 	for j in range(len(image_np[0])):
 			# 		if i > top and i < bottom and j > left  and j < right:
 			# 			new_image[i, j] = 0
-			new_image[top:bottom, left:right, :] = 0
+			new_image[top:bottom, left:right] = 0
 			new_image = Image.fromarray(new_image)
 			new_image.save(output_path[k] + name)
