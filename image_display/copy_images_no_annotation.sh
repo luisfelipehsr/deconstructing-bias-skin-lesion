@@ -5,17 +5,17 @@ for image in '006cec2e-6ce2-4549-bffa-eadfcd1e9970' '008c19e8-a820-403a-930a-bc7
 do
     for dir in 'pneumonia-bbox70-double' 'pneumonia-bbox70-single' 'pneumonia-masks' 'pneumonia-masks-combined';
     do
-        mkdir -p $dir;
+        mkdir -p "${OUTPUT_DIR}/${dir}";
         cp "${REPO_DIR}/${dir}/${image}.png" "${OUTPUT_DIR}/${dir}";
     done;
 
-    mkdir -p train;
+    mkdir -p "${OUTPUT_DIR}/train";
     cp "${REPO_DIR}/pneumonia/images/train/${image}.jpg" "${OUTPUT_DIR}/train/${image}.jpg";
 
     only_masks='pneumonia/images/only_masks'
     for dir in 'single_box' 'double_box';
     do
-        mkdir -p "${dir}"
+        mkdir -p "${OUTPUT_DIR}/${dir}"
         cp "${REPO_DIR}/${only_masks}/${dir}/${image}.png" "${OUTPUT_DIR}/${dir}/${image}.png"
     done;
 done;
