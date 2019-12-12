@@ -2,7 +2,7 @@
 DEVICE=0
 BASE=1
 TRAIN_DIR='pneumonia/images/center'
-CSV_DIR='ratio'
+CSV_DIR='pneumonia/ratio'
 
 # train
 python3 train_sacred_csv.py with train_root="${TRAIN_DIR}/0.7" train_csv="${CSV_DIR}/0.7/10fold-classification/pneumonia-train-0.csv" device=${DEVICE} id_col='patientId' class_col='Target' --name "sacred-pneumonia-rgb-0"
