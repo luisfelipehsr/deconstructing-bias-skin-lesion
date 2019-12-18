@@ -40,5 +40,7 @@ for file in dir_list:
 		new_image = Image.open(traditional_path + name[:-4] + '.png')
 	new_image = np.array(new_image)
 	new_image[:, :] = 0
+	print(name)
+	print(new_image.max(), new_image.min())
 	new_image = Image.fromarray(new_image)
 	new_image.save(output_path + name[:-4] + '.png')
