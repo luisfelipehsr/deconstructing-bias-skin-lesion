@@ -20,7 +20,7 @@ do
     done;
 
     only_masks='pneumonia/images/center'
-    for dir in '0.7' '0.9';
+    for dir in "0.7" "0.9";
     do
         mkdir -p "${OUTPUT_DIR}/${dir}"
         cp "${REPO_DIR}/${only_masks}/${dir}/${image}.png" "${OUTPUT_DIR}/${dir}/${image}.png"
